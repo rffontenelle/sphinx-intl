@@ -92,7 +92,7 @@ option_locale_dir = click.option(
     "--locale-dir",
     envvar=ENVVAR_PREFIX + "_LOCALE_DIR",
     type=click.Path(exists=False, file_okay=False),
-    default="locales",
+    default="locale",
     metavar="<DIR>",
     show_default=True,
     help="locale directories that allow comma separated string. This option "
