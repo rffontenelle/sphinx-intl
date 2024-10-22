@@ -1,0 +1,31 @@
+name: Docs
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
+          cache: 'pip'
+          cache-dependency-path: 'doc/requirements.txt'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build docs
+        run: make -C doc html O='--keep-going --fail-on-warning --nitpicky'
+      - name: Lint docs
+        if: always()
+        run: sphinx-lint doc/
+      - name: Check links
+        if: always()
+        run: make -C doc linkcheck O='--keep-going'
+      
