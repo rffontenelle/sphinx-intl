@@ -1,5 +1,11 @@
 name: Docs
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'doc/'
+  pull_request:
+    paths:
+      - 'doc/'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
