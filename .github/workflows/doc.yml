@@ -1,0 +1,8 @@
+name: Doc
+on: [push, pull_request]
+
+job:
+  doc:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo hello
