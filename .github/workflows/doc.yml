@@ -24,7 +24,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'doc/requirements.txt'
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r doc/requirements.txt
       - name: Build docs
         run: make -C doc html O='--keep-going --fail-on-warning --nitpicky'
       - name: Lint docs
